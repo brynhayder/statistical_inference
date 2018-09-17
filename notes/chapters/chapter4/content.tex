@@ -1,0 +1,131 @@
+\section{Multiple Random Variables}
+
+\subsection{Facts}
+\begin{itemize}[+]
+    \item RVs are independent if and only if their pdfs factorise
+    \item Functions of independent RVs are independent
+    \item Expectations (and hence mgfs, etc.) of independent RVs factor
+    \item Independent RVs have vanishing covariance/correlation, but the converse is not true in general.
+\end{itemize}
+
+\subsection{Bivariate Relations}
+\begin{theorem}[Conditional Expectation]
+    \[
+        \E{}[\E{}[X|Y]] = \E{}[X]
+    \]
+    provided the expectations exist.
+\end{theorem}
+
+\begin{theorem}[Conditional variance]
+    \[
+        \Var{}[X] = \E{}[\Var{}[X \vert{} Y]] + \Var{}[\E{}[X \vert{} Y]]
+    \]
+    provided the expectations exist.
+\end{theorem}
+
+\begin{definition}[Covariance]
+    \[
+        \Cov{}[X, Y] = \E{}[(X - \mu_X)(Y - \mu_Y)]
+    \]
+\end{definition}
+
+\begin{theorem}
+    \[
+        \Cov{}[X, Y] = \E{}[XY] - \mu_X\mu_Y
+    \]
+\end{theorem}
+
+\begin{theorem}
+    \[
+        \Var[aX + bY] = a^2\Var{}[X] + b^2\Var{}[Y] + 2ab\Cov[X, Y]
+    \]
+\end{theorem}
+
+\begin{definition}[Correlation]
+    \[
+        \rho_XY = \frac{\Cov[X, Y]}{\sigma_X \sigma_Y}
+    \]
+\end{definition}
+
+\begin{remark}
+    The correlation measures the strength of \emph{linear} relation between two RVs. It is possible to have strong non-linear relationships but with $\rho = 0$.
+\end{remark}
+
+We can use an argument similar to the standard proof of Cauchy-Schwarz to show the following
+\begin{theorem}
+    Let $X$ and $Y$ be any RVs, then
+    \begin{enumerate}[a.]
+        \item $-1 \leq \rho_{XY} \leq 1$,
+        \item $\abs{\rho_{XY}} = 1$ if and only if there are constants $a \neq 0, b$ such that $\P{}(Y = aX + b) = 1$. If $\abs{\rho_{XY}} = 1$ then $\text{sign}(\rho) = \text{sign}(a)$.
+    \end{enumerate}
+\end{theorem}
+
+
+\subsection{Inequalities}
+
+\subsubsection{Numerical Inequalities}
+
+\begin{theorem}
+    Let $a$ and $b$ be any positive numbers and let $p, q > 1$ satisfy $1/p + 1/q = 1$, then
+    \[
+        \frac1p a^p + \frac1q b^q \geq ab
+    \]
+    with equality if and only if $a^p = b^q$.
+\end{theorem}
+    
+
+\begin{theorem}[H{\"o}lder's Inequality]
+    Let $X$ and $Y$ be any random variables and let $p, q > 1$ satisfy $1/p + 1/q = 1$, then
+    \[
+        \abs{\E{}[XY]} \leq \E{}[\abs{XY}] \leq \E{}[\abs{X}^p]^{1/p} \E{}[\abs{Y}^q]^{1/q}
+    \]
+\end{theorem} 
+
+\begin{corollary}\mbox{}
+    \begin{itemize}
+        \item Cauchy-Schwarz is the special case $p = q = 2$
+        \item $\Cov[X, Y]^2 \leq \sigma_X^2 \sigma_Y^2$
+        \item $\E{}[\abs{X}] \leq \E{}[\abs{X}^p]^{1/p}$
+        \item \emph{Liapounov's Inequality} $\E{}[\abs{X}^r]^{1/r} \leq \E{}[\abs{X}^s]^{1/s}$ where $1 < r < s < \infty$.
+    \end{itemize}
+\end{corollary}
+
+
+\subsubsection{Functional Inequalities}
+
+\begin{definition}[Convex Function]
+    A function $g(x)$ is \emph{convex} on a set $S$ if for all $x, y \in S$ and $0< \lambda < 1$
+    \[
+        g(\lambda x + (1 - \lambda)y) \leq \lambda g(x) + (1 - \lambda)g(y).
+    \]
+    \emph{Strictly convex} is when the inequality is strict. $g$ is \emph{concave} if $-g$ is convex.
+\end{definition}
+
+\begin{lemma}
+    $g(x)$ is convex on $S$ if $g''(x) \geq 0$ $\forall x \in S$.
+\end{lemma}
+
+\begin{theorem}[Jensen's Inequality]
+    If $g(x)$ is convex, then for any random variable $X$
+    \[
+        \E{}[g(X)] \leq g(\E{}[X]).
+    \]
+    Equality holds if and only if, for every line $a + bx$ that is tangent to $g(x)$ at $x = \E{}[X]$, $\P{}\{g(X) = a + bX\} = 1$. (So if and only if $g$ is affine with probability 1.)
+\end{theorem}
+
+\begin{corollary}
+    \mbox{}
+    \begin{itemize}
+        \item $\E{}[X^2] \geq \E{}[X]^2$
+        \item $\E{}[1/X] \geq 1/ \E{}[X]$
+    \end{itemize}
+\end{corollary}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,186 @@
+\section{Transformations and Expectations}
+
+\subsection{Transformations}
+
+If $X$ and $Y$ are discrete random variables, with $Y = g(X)$, then
+\begin{equation}
+    f_Y(y) = \sum_{\{x: g(x) = y\}} f_X(x).
+\end{equation}
+
+For the remainder of this section we will take $X$ and $Y$ to be continuous random variables, with $Y = g(X)$. As such, we will define the following sets $\X{} = \{x: f_X(x) > 0\}$ and $\Y{} = \{y: y =g(x) \quad x \in S \subseteq \X{} \}$.\\
+
+\begin{theorem}
+    Let $X$ have cdf $F_X(s)$, let $Y = g(X)$ and let $\X{}$ and $\Y{}$ be defined as above. Then
+    \begin{enumerate}[a.]
+        \item If g is increasing on $\X{}$, then $F_Y(y) = F_X(g^{-1}(y))$ for $y \in \Y{}$.
+        \item If g is decreasing on $\X{}$, then $F_Y(y) = 1 - F_X(g^{-1}(y))$ for $y \in \Y{}$. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Let $X$ have pdf $f_X(x)$ and $Y = g(X)$, where $g$ is monotone. Define $\X{}$ and $\Y{}$ as above. Suppose $f_X(x)$ is continuous on $\X{}$ and $g^{-1}(y)$ has continuous first derivative on $\Y{}$. Then the pdf of $Y$ is given by:
+    \begin{equation*}
+        f_Y(y) = \1{y \in \Y{}} f_X(g^{-1}(y)) \abs{ \frac{\d{}}{\d{}y} g^{-1}(y) }
+    \end{equation*}
+\end{theorem}
+
+If $g$ is not globally monotone, then we just partition $\X{}$ into subsets on which $g$ is continuous and monotone and sum the results. If such a partition doesn't exist, then we have technical problems.\\
+
+\begin{theorem}[Probability integral transform]
+    Let $X$ have continuous cdf $F_X(x)$ and define the random variable $Y$ by $Y = F_X(X)$. Then $Y$ is uniformly distributed on $(0, 1)$.
+\end{theorem}
+
+If $F_X(x) = y$ is constant on some interval then we define the inverse by 
+\[
+    F_X^{-1}(y) = \inf \{x: F_X(x) = y\}.
+\]
+
+\subsection{Expectations}
+
+\begin{definition}[Expected value]
+    The \emph{expected value} of a random variable $g(X)$, denoted $\E{}[X]$ is defined by:
+    \begin{itemize}[-]
+        \item $\E{}[X] = \int_{\R{}}g(x)f_X(x)\d{}x$ if $X$ is continuous,
+        \item $\E{}[X] = \sum_{x \in \X{}}g(x)\P{}(X = x)$ if $X$ is discrete.
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Properties of expectation]
+    \begin{enumerate}[a.]
+        \item Linearity.
+        \item $g_1(x) \geq g_2(x) \,\, \forall x \quad \implies \quad \E{}[g_1(X)] \geq \E{}[g_2(X)]$
+        \item $a \leq g(x) \leq b \,\, \forall x \quad \implies \quad a \leq \E[g(X)] \leq b $
+        \item $\argmin_{c}\E{}[(X - c)^2] = \E{}[X]$
+    \end{enumerate}
+\end{theorem}
+
+\subsection{Moments}
+
+\begin{definition}[Moment]
+    For integer $n$, the $n^{\mathrm{th}}$ \emph{moment} of $X$ is
+    \[
+        \mu_n' = \E{}[X^n].
+    \]
+    The $n^{\mathrm{th}}$ \emph{central moment}, $\mu_n$ is 
+    \[
+        \mu_n = \E[(X - \mu)^n].
+    \]
+    Where $\mu = \mu_1 = \E{}[X]$
+\end{definition}
+
+\subsubsection{Variance}
+\begin{definition}[Variance]
+    The \emph{variance} of a random variable $X$, written $\Var{}[X]$ is the second central moment of $X$,
+    \[
+        \Var{}[X] = \E{}[(X - \E{}[X])^2].
+    \]
+    The \emph{standard deviation} of $X$, denoted $\sigma_X$, is given by $\sigma_X = \sqrt{\Var{}[X]}$.
+\end{definition}
+
+\begin{theorem}[Properties of variance]
+    If $X$ has finite variance then:
+    \begin{enumerate}[a.]
+        \item $\Var{}[aX + b] = a^2\Var{}[X]$
+        \item $\Var{}[X] = \E{}[X^2] - \E{}[X]^2$
+    \end{enumerate}
+\end{theorem}
+
+\subsubsection{Moment Generating Functions}
+\begin{definition}[Moment generating function]
+    Let $X$ be a random variable with cdf $F_X$. The \emph{moment generating function (mgf)} of $X$, denoted $M_X(t)$, is given by
+    \[
+        M_X(t) = \E{}[e^{tX}]
+    \]
+    provided that the expectation exists for $t$ in some (open) neighbourhood of 0 (otherwise we say the mgf does not exist).
+\end{definition}
+
+\begin{remark}
+    The mgf is the Laplace transform of the pdf.
+\end{remark}
+
+\begin{theorem}
+    If $X$ has mgf $M_X(t)$ then
+    \[
+        \E{}[X^n] = \left. \frac{\d}{\d t}M_X(t)\right|_{t=0}
+    \]
+\end{theorem}
+
+The mgf can be used to calculate moments, but its principal utility is in characterising a distribution. This relationship can run into some technical difficulties. If the mgf exists, it characterises an infinite set of moments. However, it is possible for two distinct random variables to give rise to the same set of moments.\\
+    
+The problem of uniqueness of moments does not occur if the random variables have bounded support (in this case an infinite sequence of moments uniquely determines the distribution). Further, if the mgf exists in a neighbourhood of 0 then it uniquely determines the distribution, no matter the support. Thus, existence of an infinite set of moments is not equivalent to the existence of the mgf. We have the following theorem, describing when the mgf determines the distribution.   
+
+\begin{theorem}[When mgf determines distribution]
+    Let $F_X(x)$ and $F_Y(y)$ be two cdfs all of whose moments exist.
+    \begin{enumerate}[a.]
+        \item If $X$ and $Y$ have bounded support then $F_X(u) = F_Y(u) \,\, \forall u$ if and only if $\E{}[X^r] = \E{}[Y^r] \,\, \forall r \in \N$. (So the cdfs are equal if and only if all the moments agree.)
+        \item If the mgfs exist and are identical in some neighbourhood of 0 then the cdfs are equal.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Convergence of mgfs near 0 implies convergence of cdfs]
+    Suppose $\{X_i, i=1, 2, \dots$\} is a sequence of random variables, each with mgf $M_{X_i}(t)$. Suppose also that for all $t$ in a neighbourhood of 0
+    \[
+        lim_{i \to  \infty} M_{X_i} = M_X(t) 
+    \]
+    where $M_X(t)$ is an mgf. Then there is a unique cdf $F_X$ whose moments are determined by $M_X(t)$ and, for all $x$ at which $F_X(x)$ is continuous, we have
+    \[
+        lim_{i\to\infty} F_{X_i}(x) = F_X(x).
+    \]
+\end{theorem}  
+
+\begin{remark}
+    The convergence of a sequence of moments is not enough to show the convergence of random variables. We need the moment sequence to be unique too. However, if the mgfs converge in a neighbourhood of 0 as above, then we know that the random variables converge. Convergence of mgfs is therefore a sufficient, but not necessary, condition for convergence of the random variables.
+\end{remark}
+
+\begin{theorem}
+    For any constants $a$ and $b$
+    \[
+        M_{aX + b}(t) = e^{bt}M_X(at)\
+    \]
+\end{theorem}
+
+\subsection{Other Generating Functions}
+
+\begin{definition}[Cumulant generating function]
+    The \emph{cumulant generating function} is $\log(M_X(t))$. The \emph{cumulants} of $X$ are defined as the coefficients of the Taylor series of this function.
+\end{definition}
+
+\begin{definition}[Factorial moment generating function]
+    The \emph{factorial moment generating function} is $\E{}[t^X]$. The name comes from
+    \[
+        \left. \frac{\d^r}{\d t^r} \E{}[t^X] \right|_{t=1} = \E{}[X(X-1)\cdots(X-r+1).
+    \]
+    For discrete distributions this is the \emph{probability generating function} and the coefficients of the power series give the probabilities
+    \[
+        \left. \frac{1}{k!} \frac{\d^k}{\d t^k} \E{}[t^X] \right|_{t=0}  = \P{}(X=k).
+    \]
+\end{definition}
+
+\begin{definition}[Characteristic function]
+    The \emph{characteristic function} of a random variable $X$ is
+    \[
+        \phi_X(t) = \E{}[e^{itX}]
+    \]
+\end{definition}
+
+\begin{remark}
+    The characteristic function is the most useful of the generating functions. Every cdf has a unique characteristic function. When the moments of the cdf exist, the characteristic function can be used to calculate them.
+\end{remark}
+
+
+    
+
+
+    
+
+    
+
+    
+
+        
+
+
+
+
+    
+

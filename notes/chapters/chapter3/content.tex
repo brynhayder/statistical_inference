@@ -1,0 +1,155 @@
+\section{Common Families of Distributions}
+
+\begin{center}
+    \emph{Lots of this chapter is standard definitions of distributions, so is omitted}
+\end{center}
+
+\subsection{Multinomial Distribution}
+\begin{definition}[Multinomial Distribution]
+    Let $m$ and $n$ be positive integers and let $p_1, \dots, p_n \in [0, 1]$ satisfy $\sum_{i=1}^n p_i = 1$. Then the random vector $(X_1, \dots, X_n)$ has \emph{multinomial distribution with m trials and cell probabilities $p_1, \dots, p_n$} if the joint pmf of $(X_1, \dots, X_n)$ is 
+    \[
+        f(x_1, \dots , x_n) = \frac{m!}{x_1! \cdots x_n!} p_1^{x_1} \cdots
+p_n^{x_n} = m! \prod_{i=1}^n \frac{p_i^{x_i}}{x_i!} 
+    \]
+    on the set of $(x_1, \dots, x_n)$ such that each $x_i$ is a nonnegative integer and $\sum_{i=1}^n x_i = m$.
+\end{definition}
+
+\begin{remark}
+    The marginal distributions have $X_i \sim \text{binomial}(m, p_i)$.
+\end{remark}
+
+\begin{theorem}[Multinomial Theorem]
+    Let $m$ and $n$ be positive integers and let $\mathcal{A}$ be the set of vectors $\vec{x} = (x_1, \dots, x_n)$ such that each $x_i$ is a nonnegative integer and $\sum_{i=1}^n x_i = m$. Then for any real numbers $p_1, \dots, p_n$,
+    \[
+        (p_1 + \cdots + p_n)^m = \sum_{\vec{x} \in \mathcal{A}} \frac{m!}{x_1! \cdots x_n!} p_1^{x_1}\cdots p_n^{x_n}.
+    \]
+\end{theorem}
+
+
+\subsection{Exponential Families}
+
+\begin{definition}[Exponential family 1]
+    A family of pmfs/pdfs is called an \emph{exponential family} if it can be expressed
+    \[
+          f(x|\vec{\theta}) = h(x)c(\vec{\theta})\exp\left( \sum_{i=1}^k w_i(\vec{\theta}) t_i(x) \right)
+    \]
+    where $h(x) \geq 0$, the $t_i$ are real valued functions of the observation $x$ that do not depend on $\vec{\theta}$ and $c(\theta) \geq 0$ and the $w_i(\vec{\theta})$ are real valued functions of $\vec{\theta}$ that do not depend on $x$.
+\end{definition}
+
+\begin{theorem}
+    If $X$ is a random variable from an exponential family distribution then
+    \[
+        \E{}\left[ \sum_{i=1}^k \frac{\pd w_i(\vec{\theta})}{\pd \theta_j} t_i(X) \right] = - \frac{\pd}{\pd \theta_j} \log c(\vec{\theta})
+    \]
+    and
+    \[
+        \Var\left[ \frac{\pd w_i(\vec{\theta})}{\pd \theta_j} t_i(X) \right] = - \frac{\pd^2}{\pd \theta_j^2} \log c(\vec{\theta}) - \E{}\left[ \sum_{i=1}^{k} \frac{\pd^2 w_i(\vec{\theta})}{\pd \theta_j^2} t_i(X) \right]
+    \]
+\end{theorem}
+
+\begin{definition}[Exponential family 2]
+    We can write another parameterisation of the exponential family
+    \[
+        f(x | \vec{\eta}) = h(x) c^{*}(\vec{\eta}) \exp(\vec{\eta} \cdot \vec{t}(x))
+    \]
+    where $\vec{\eta}$ is called the \emph{natural parameter} and the set $\H{} = \{\vec{\eta} : \int_\R{} f(x|\eta) \d x < \infty \}$ is called the \emph{natural parameter space} and is convex.
+\end{definition}
+
+\begin{remark}
+    $\{\vec{\eta}: \vec{\eta} = \vec{w}(\vec{\theta}), \,\, \vec{\theta} \in \Theta\} \subseteq \H{}$. So there may be more parameterisations here than previously.\\
+    
+The natural parameter provides a convenient mathematical formulation, but sometimes lacks simple interpretation.
+\end{remark}
+
+\begin{definition}[Curved exponential family]
+    A \emph{curved exponential family} distribution is one for which the dimension of $\vec{\theta}$ is $d < k$. If $d = k$ then we have a \emph{full exponential family}.
+\end{definition}
+
+\subsection{Location and Scale Families}
+
+\begin{definition}[Location family]
+    Let $f(x)$ be any pdf. The family of pdfs $f(x - \mu)$ for $\mu \in \R{}$ is called the \emph{location family with standard pdf $f(x)$} and $\mu$ is the \emph{location parameter} of the family.
+\end{definition}
+
+\begin{definition}[Scale family]
+    Let $f(x)$ be any pdf. For any $\sigma > 0$ the family of pdfs $\frac{1}{\sigma} f(x/\sigma)$ is called the \emph{scale family with standard pdf $f(x)$} and $\sigma$ is the \emph{scale parameter} of the family.
+\end{definition}
+
+\begin{definition}[Location-Scale family]
+    Let $f(x)$ be any pdf. For $\mu \in \R{}$ and $\sigma > 0$ the family of pdfs $\frac{1}{\sigma} f(\frac{x - \mu}{\sigma})$ is called the \emph{location-scale family with standard pdf $f(x)$}; $\mu$ is the \emph{location parameter} and $\sigma$ is the \emph{scale parameter}.
+\end{definition}
+
+\begin{theorem}[Standardisation]
+    Let $f$ be any pdf, $\mu \in \R{}$ and $\sigma \in \R{}_{>0}$. Then $X$ is a random variable with pdf $\frac{1}{\sigma}f(\frac{x - \mu}{\sigma})$ if and only if there exists a random variable $Z$ with pdf $f(z)$ and $X = \sigma Z + \mu$.
+\end{theorem}
+
+\begin{remark}
+    Probabilities of location-scale families can be computed in terms of their standard variables $Z$
+    \[
+        \P{}(X \leq x) = \P{}\left(Z \leq \frac{x - \mu}{\sigma} \right)
+    \]
+\end{remark}
+
+\subsection{Inequalities and Identities}
+
+\begin{theorem}[Chebychev's inequality]
+    Let $X$ be a random variable and let $g(x)$ be a nonnegative function. Then, for any $r > 0$,
+    \[
+        \P{}(g(X) \geq r) \leq \frac{\E{}[g(X)]}{r}.
+    \]
+\end{theorem}
+
+\begin{remark}
+    This bound is conservative and almost never attained. 
+\end{remark}
+
+\begin{remark}[Markov inequality]   
+    The Markov inequality is the special case with $g = \mathbb{I}$.
+\end{remark}
+
+\begin{theorem}
+    Let $X_{\alpha, \beta}$ denote a gamma$(\alpha, \beta)$ random variable with pdf $f(x \vert{} \alpha, \beta)$, where $\alpha > 1$. Then for any constants $a$ and $b$:
+    \[
+        \P{}(a < X_{\alpha, \beta} < b) = \beta (f(a \vert{} \alpha, \beta) - f(b \vert{} \alpha, \beta)) + \P{}(a < X_{\alpha - 1, \beta} < b)
+    \]
+\end{theorem}
+
+\begin{lemma}[Stein's Lemma]
+    Let $X \sim \n(\theta, \sigma^2)$ and let $g$ be a differentiable function with $\E{}[g'(x)] < \infty$. Then
+    \[
+        \E{}[g(X)(X - \theta)] = \sigma^2 \E{}[g'(X)]
+    \]
+\end{lemma}
+The proof is just integration by parts.
+
+\begin{remark}
+    Stein's lemma is useful for moment calculations
+\end{remark}
+
+\begin{theorem}
+    Let $\chi^2_p$ denote a chi squared distribution with $p$ degrees of freedom. For any function $h(x)$,
+    \[
+        \E{}[h(\chi^2_p)] = p \E{}\left[\frac{h(\chi_{p+2}^2)}{\chi_{p+2}^2}\right]
+    \]
+    provided the expressions exist.
+\end{theorem}
+
+\begin{theorem}
+    Let $g(x)$ be a function that is bounded at $-1$ and has finite expectation, then
+    \begin{enumerate}[a.]
+        \item If $X \sim \text{Poisson}(\lambda)$,
+            \[
+                \E{}[\lambda g(X)] = \E{}[Xg(X-1)].
+            \]
+        \item If $X\sim \text{negative-binomial}(r, p)$,
+            \[
+                \E{}[(1-p)g(X)] = \E{}\left[ \frac{X}{r + X - 1}g(X) \right].
+            \]
+    \end{enumerate}
+\end{theorem}
+
+
+
+
+
+

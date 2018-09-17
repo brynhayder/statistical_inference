@@ -1,0 +1,101 @@
+\section{Probability Theory}
+
+\begin{theorem}[Laws of Set Algebra]
+    For any three sets $A$, $B$, $C$ all subsets of $S$, we have that the operators $\cup$ and $\cap$ are distributive, commutative, associative and satisfy DeMorgan's Laws:
+    \begin{align*}
+        \comp{(A \cup B)} &= \comp{A} \cap \comp{B} \\
+        \comp{(A \cap B)} &= \comp{A} \cup \comp{B}
+    \end{align*}
+\end{theorem}
+
+\begin{definition}[Sigma Algebra]
+    A collections of subsets S is calles a \emph{sigma algebra} (or \emph{Borel Field}), denoted by $\B{}$, if it has the following three properties:
+    \begin{enumerate}[a.]
+        \item $\emptyset \in \B{}$
+        \item $A \in \B{} \implies \comp{A} \in \B{}$
+        \item If $A_i \in \B{}$ for $i$ in $\mathcal{I}$ then $\cup_{i\in\mathcal{I}}A_i \in \B{}$, where $\mathcal{I}$ is countable. So $\B{}$ is closed under countable union.
+    \end{enumerate}
+\end{definition}
+
+Note that from DeMorgan's laws we have
+\begin{equation}
+    \comp{\left(\bigcup_{i=1}^\infty \comp{A_i}\right)} = \bigcap_{i=1}^\infty A_i
+\end{equation}
+which means that, using b. we get $\B{}$ is also closed under countable intersections $\cap_{i=1}^\infty A_i \in \B{}$.
+
+\begin{definition}[Kolmogorov Axioms]
+    Given a sample space $S$ and an associated sigma algebra $\B{}$, a \emph{probability function} is a function $\P{}$ with domain $\B{}$ that satisfies
+    \begin{enumerate}
+        \item $\P{}(A) \geq 0 \quad \forall A \in \B{}$
+        \item $\P{}(S) = 1$
+        \item If $A_1, A_2, \dots \in \B{}$ are pairwise disjoint, then $\P{}(\cup_{i=1}^\infty A_i = \sum_{i=1}^{\infty})\P{}(A_i)$
+    \end{enumerate}
+\end{definition}
+
+The following result makes it a bit easier to find probability functions.
+
+\begin{theorem}
+    Let $S=\{s_1, s_2, \dots\}$ be a countable set. Let $\B{}$ be any sigma algebra of subsets of $S$. Let $p_1, p_2, \dots$ be nonnegative numbers that sum to 1. For any $A \in \B{}$, define $\P{}(A)$ by
+    \[
+        \P{}(A) = \sum_{\{i: s_i \in A\}} p_i.
+    \]
+Then $\P{}$ is a probability function on $\B{}$.
+\end{theorem}
+
+\begin{definition}[Random Variable]
+    A \emph{random variable} is a function from a sample space $S$ into the real numbers.
+\end{definition}
+
+\begin{definition}[cdf]
+    The \emph{cumulative distribution function} of \emph{cdf} of a random variable $X$ is defined by
+    \[
+        F_X(x) = \P{}_X(X \leq x) \quad \forall x
+    \]
+\end{definition}
+
+\begin{theorem}
+    The function $F(x)$ is a cdf if and only if:
+    \begin{enumerate}
+        \item $\lim_{x \to - \infty} F(x) = 0$ and $\lim_{x\to\infty} F(x) = 1$.
+        \item $F(x)$ is a non-decreasing function of x.
+        \item $F(x)$ is right-continuous, that is, for every number $x_0$, $\lim_{x\downarrow x_0} F(x) = F(x_0)$
+    \end{enumerate}
+\end{theorem}
+
+We say that a random variable is continuous if its cdf is continuous, and we say that it is discrete if its cdf is a step function.
+
+\begin{theorem}
+    The following statements are equivalent:
+    \begin{enumerate}
+        \item $X$ and $Y$ are identically distributed
+        \item $F_X(x) = F_Y(x) \quad \forall x$
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}[probability mass function]
+    The \emph{probability mass function} or \emph{pmf} of a discrete random variable $X$ is
+    \[
+        f_X(x) = P(X=x) \quad \forall x
+    \]
+\end{definition}
+
+\begin{definition}[probability density function]
+    The \emph{probability density function} or \emph{pdf} of a continuous random variable $X$ is the function $f_X(x)$ that satisfies
+    \[
+        F_X(x) = \int_{-\infty}^{x}f_X(t) \d{} t \quad \forall x
+    \]
+\end{definition}
+
+\begin{theorem}
+    A function $f_X(x)$ is a pdf (of pmf) of a random variable $X$ if and only if
+    \begin{enumerate}[a.]
+        \item $f_X(x) \geq 0 \quad \forall x$
+        \item $\sum_x f_X(x) = 1$ (pmf) or $\int_x f_X(x)\d{}x = 1$ (pdf).
+    \end{enumerate}
+\end{theorem}
+
+
+
+
+
+
