@@ -1,10 +1,89 @@
 \section{Common Families of Distributions}
 
+
 \begin{center}
     \emph{Lots of this chapter is standard definitions of distributions, so is omitted}
 \end{center}
 
-\subsection{Multinomial Distribution}
+
+\subsection{Some Distributions}
+
+\begin{definition}[Normal Distribution]
+    If $\vec{X} \sim \n(\vec{\mu}, \bm{\Sigma})$ then $\vec{X}$ has pdf
+    \[
+    f_{\vec{X}}(x_1, \dots, x_k \vert{} \vec{\mu}, \bm{\Sigma})  = \frac{1}{\sqrt{(2\pi)^k \det\bm{\Sigma}}} \exp\left(-\frac12 (\vec{ x}-\vec{\mu})^\top \bm{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right)
+    \].
+\end{definition}
+
+\subsubsection{Chi-Squared Distribution}
+\begin{definition}
+    The \emph{chi-squared distribution with $p$ degrees of freedom} has pdf
+    \[
+        \chi_p^2 \sim \frac{1}{\Gamma(p/2)2^{p/2}} x^{(p/2)-1} e^{-x/2}, \quad 0< x< \infty.
+    \]
+\end{definition}
+
+\begin{theorem}[Some facts]
+    \mbox{}
+    \begin{enumerate}[a.]
+        \item If $Z \sim \n(0, 1)$ then $Z^2 \sim \chi_1^2$
+        \item If $X_1, \dots, X_n$ are independent $X_i \sim \chi_{p_i}^2$ then $X_1 + \cdots + X_n \sim \chi_{p_1 + \cdots + p_n}^2$.
+    \end{enumerate}
+\end{theorem}
+
+\subsubsection{Student's $t$-Distribution}
+\begin{definition}[Student's $t$-distribution]
+    $T \sim t_p$, a \emph{$t$-distribution with $p$ degrees of freedom} if it has pdf
+    \[
+        f_T(t) = \frac{\Gamma\left(\frac{p+1}{2}\right)}{\Gamma\left(\frac{p}{2}\right)} \frac{1}{\sqrt{p\pi}} \frac{1}{(1 + t^2/p)^{(p+1)/2}}, \quad t \in \R{}
+    \]
+\end{definition}
+
+If $p = 1$ then this is the Cauchy distribution.
+
+\begin{remark}
+    If $X_1, \dots, X_n$ are a random sample from $\n(\mu, \sigma^2)$ then
+    \[
+        \frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}.
+    \]
+    This is often taken as the definition. Note that the denominator is independent of the numerator.
+\end{remark}
+
+\begin{lemma}[Moments and mgf of $t$-distribution]
+    Student's $t$ has no mgf because it does not have moments of all orders: $t_p$ has only $p-1$ moments. If $T_p \sim t_p$ then
+    \begin{align*}
+        \E{}[T_p] &= 0 \quad p > 1 \\
+        \Var{}[T_p] &= \frac{p}{p-2} \quad p > 2
+    \end{align*}
+\end{lemma}
+
+\subsubsection{Snedcor's $F$-Distribution}
+
+\begin{definition}[Snedcor's $F$-distribution]
+    A random variable $X \sim F_{p,q}$ has \emph{$F$-distribution with p and q degrees of freedom} if its pdf is
+    \[
+        f_X(x) = \frac{\Gamma\left(\frac{p+q}{2}\right)}{\Gamma\left(\frac p2 \right)\Gamma\left(\frac q2 \right)} (p/q)^{p/2} \frac{x^{(p/2) - 1}}{(1 + px/q)^{(p+q)/2}}, \quad 0 < x < \infty.
+    \]
+\end{definition}
+
+\begin{remark}
+    If $X_1, \dots, X_n$ is a random sample from $\n(\mu_X, \sigma_X^2)$ and $Y_1, \dots, Y_m$ is an independent random sample from $\n(\mu_Y, \sigma_Y^2)$, then
+    \[
+        \frac{S^2_X/\sigma^2_X}{S_Y^2/\sigma_Y^2} \sim F_{n-1, m-1}.
+    \]
+    This is often taken as the definition.
+\end{remark}
+
+\begin{theorem}[Some facts]
+    \mbox{}
+    \begin{enumerate}[a.]
+        \item $X \sim F_{p,q} \,\, \implies \,\, 1/X \sim F_{q,p}$
+        \item $X \sim t_q \,\, \implies \,\, X^2 \sim F_{1,q}$
+        \item $X \sim F_{p,q} \,\, \implies \,\, \frac{(p/q)X}{1 + (p/q)X} \sim \text{beta}(p/2, q/2)$
+    \end{enumerate}
+\end{theorem}
+
+\subsubsection{Multinomial Distribution}
 \begin{definition}[Multinomial Distribution]
     Let $m$ and $n$ be positive integers and let $p_1, \dots, p_n \in [0, 1]$ satisfy $\sum_{i=1}^n p_i = 1$. Then the random vector $(X_1, \dots, X_n)$ has \emph{multinomial distribution with m trials and cell probabilities $p_1, \dots, p_n$} if the joint pmf of $(X_1, \dots, X_n)$ is 
     \[

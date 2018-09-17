@@ -1,2 +1,239 @@
 \section{Properties of a Random Sample}
 
+\begin{definition}[Random Sample]
+    A collection of random variables $X_1, \dots, X_n$ is a \emph{random sample of size n from population $f(x)$} if they are iid with pdf/pmf f(x).
+\end{definition}
+
+\begin{definition}[Statistic]
+    $Y = T(X_1, \dots, X_n)$ is a \emph{statistic} if the domain of $T$ contains the sample space of $(X_1, \dots, X_n)$. The distribution of $Y$ is the \emph{sampling distribution of $Y$}.
+\end{definition}
+
+\begin{remark}
+    A statistic is any function of the data. The only restriction is that the statistic is not also a function of some other parameters.
+\end{remark}
+
+\begin{definition}[Sample Mean and Sample Variance]
+    The \emph{sample mean} $\bar{X}$ and \emph{sample variance} $S^2$ of a random sample $X_1, \dots, X_n$ are, respectively,
+    \begin{itemize}
+        \item $\bar{X} = \frac1n \sum_{i=1}^n X_i$
+        \item $S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$.
+    \end{itemize}
+    The \emph{sample standard deviation} is $S = \sqrt{S^2}$.
+\end{definition}
+
+\begin{theorem}[Some facts]
+    Let $X_1, \dots, X_n$ be a random sample from a population with mean $\mu$ and finite variance $\sigma^2$, then
+    \begin{enumerate}[a.]
+        \item $\E{}[\bar{X}] = \mu$
+        \item $\Var{}[\bar{X}] = \frac{\sigma^2}{n}$
+        \item $\E{}[S^2] = \sigma ^2$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Take $x_1, \dots, x_n \in \R{}$ and let $\bar{x}$ be their mean. Then,
+    \begin{enumerate}[a.]
+        \item $\min_a \sum_{i=1}^n (x_i - a)^2 = \sum_{i=1}^n (x_i - \bar{x})^2$
+        \item $(n-1)s^2 = \sum_{i=1}^n(x_i - \bar{x})^2 = \sum_{i=1}^n x_i^2 - n\bar{x}^2$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Let $X_1, \dots, X_n$ be a random sample from population $f(x\vert{}\vec{\theta})$ belonging to an exponential family
+    \[
+        f(x \vert{} \vec{\theta}) = h(x)c(\vec{\theta}) \exp\left(\sum_{i=1}^k w_i(\vec{\theta})t_i(x)\right).
+    \]
+    Define the statistics 
+    \[
+        T_i(X_1, \dots, X_n) = \sum_{j=1}^n t_i(X_j), \quad i=1, \dots, k.
+    \]
+    Then if the set $\{(w_1(\vec{\theta}), \dots, w_n(\vec{\theta}), \, \theta \in \Theta\}$ contains and open subset of $\R{}^k$ then the distribution of $(X_1, \dots, X_n)$ is an exponential family of the form
+    \[
+        f(u_1, \dots, u_n \vert{} \vec{\theta}) = H(u_1, \dots, u_n) c(\vec{\theta})^n \exp\left(\sum_{i=1}^kw_i(\vec{\theta})u_i\right).
+    \]
+\end{theorem}
+
+\begin{remark}
+    The open condition eliminates curved exponential families from this result.
+\end{remark}
+
+\subsection{Sampling from the Normal Distribution}
+
+\begin{theorem}
+    Let $X_1, \dots, X_n$ be a random sample from a $\n(\mu, \sigma)$ distribution. Then,
+    \begin{itemize}
+        \item $\bar{X}$ and $S^2$ are independent
+        \item $\bar{X} \sim \n(\mu, \sigma^2/n)$
+        \item $(n-1)S^2/\sigma^2 \sim \chi^2_{n-1}$.
+    \end{itemize}
+\end{theorem}
+
+\begin{lemma}[Covariance and independence]
+    In the case of samples from a multivariate normal
+    \begin{itemize}
+        \item Independence $\iff$ vanishing covariance
+        \item Pairwise independence $\iff$ independence
+    \end{itemize}
+\end{lemma}
+
+
+\subsection{Convergence Concepts}
+
+\subsubsection{Convergence in Probability}
+\begin{definition}
+    A sequence of random variables $\{X_i: i \in \N \}$ \emph{converges in probability} to a random variable $X$ if $ \forall \epsilon > 0$
+    \[
+        \lim_{n\to\infty}\P{}(\abs{X_n - X} \geq \epsilon) = 0
+    \]
+    (or equivalently if $\lim_{n\to\infty}\P{}(\abs{X_n - X} < \epsilon) = 1$).
+\end{definition}
+
+\begin{theorem}[Weak Law of Large Numbers]
+    Let $X_1, X_2, \dots$ be iid RVs with mean $\mu$ and $\E{}[\abs{X_i}] < \infty$. Define $\bar{X}_n = \frac1n \sum_{i=1}^n$. Then the sequence $\bar{X}_n$ converges in probability to $\mu$. That is, $\forall \epsilon > 0$
+    \[
+        \lim_{n\to\infty} \P{}(\abs{X_n - \mu} < \epsilon) = 1
+    \]
+\end{theorem}
+
+Proof is using Chebychev's inequality.
+
+\begin{theorem}
+    If $X_1, X_2, \dots$ converges in probability to $X$ and $h$ is a continuous function, then $h(X_1), h(X_2), \dots$ converges in probability to $h(X)$.
+\end{theorem}
+
+\subsubsection{Almost Sure Convergence}
+
+\begin{definition}
+    A sequence of random variables $X_1, X_2, \dots$ \emph{converges almost surely} to a random variable $X$ if $ \forall \epsilon > 0$
+    \[
+        \P{}\left(\lim_{n\to\infty} \abs{\bar{X}_n - X} < \epsilon\right) = 1.
+    \]
+\end{definition}
+
+\begin{comments}
+    \mbox{}
+    \begin{itemize}[+]
+        \item Almost sure convergence is much stronger than convergence in probability. Convergence in probability states that the sequence of measures of the sets on which the sequence has finite difference from its the limit converges to 0. Almost sure convergence states that any place where the sequence has finite difference from its limit must have measure 0. It's like a sequence of integrals converging vs. whether the integrands converge.
+        \item Almost sure convergence implies convergence in probability but not the other way around.
+    \end{itemize}
+\end{comments}
+
+\begin{theorem}
+    If a sequence converges in probability then it is possible to find a subsequence that converges almost surely.
+\end{theorem}
+
+\begin{theorem}[Strong Law of Large Numbers]
+    Let $X_1, X_2, \dots$ be iid RVs with mean $\mu$ and $\E{}[\abs{X_i}] < \infty$. Define $\bar{X}_n = \frac1n \sum_{i=1}^n$. Then the sequence $\bar{X}_n$ converges almost surely to $\mu$. That is, $\forall \epsilon > 0$
+    \[
+         \P{}\left(\lim_{n\to\infty}\abs{\bar{X}_n - \mu} < \epsilon\right) = 1.
+    \]
+\end{theorem}
+    
+\subsubsection{Convergence in Distribution}
+
+\begin{definition}
+    A sequence of random variables $X_1, X_2, \dots$ \emph{converges in distribution} to a random variable $X$ if
+    \[
+        \lim_{n \to \infty} F_{X_n}(x) = F_X(x)
+    \]
+    at all points where $F_X$ is continuous.
+\end{definition}
+
+\begin{remark}
+    Here it is really the cdfs that converge, rather than the random variables. In this way convergence in distribution differs from the previous two concepts.
+\end{remark}
+
+\begin{theorem}
+    Convergence in probability implies convergence in distribution
+\end{theorem}
+
+
+\begin{theorem}[Central Limit Theorem]
+    Let $X_1, X_2, \dots$ be a sequence of iid random variables with $\E{}[X_i] = \mu$ and finite variance $\Var{}[X_i] = \sigma^2 < \infty$. Define $\bar{X}_n = \frac1n \sum_{i=1}^n X_i$. Let $G_n(x)$ denote the cdf of $\sqrt{n}(\bar{X}_n - \mu)/\sigma$. Then $\forall x \in \R$,
+    \[
+        \lim_{n\to\infty} G_n(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x e^{-y^2/2}\d{}y.
+    \]
+    That is, $\sqrt{n}(\bar{X}_n - \mu)/\sigma$ converges in distribution to the standard normal.
+\end{theorem}
+
+\begin{theorem}[Slutsky's Theorem]
+    If $X_n \to X$ in distribution and $Y_n \to a$ in probability with $a$ constant, then
+    \begin{enumerate}[a.]
+        \item $Y_nX_n \to aX$ in distribution
+        \item $X_n + Y_n \to X + a$ in distribution
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    This tells us, for instance, that 
+    \[
+        \frac{\sqrt{n}(\bar{X}_n - \mu)}{S_n} \to \n(0, 1)
+    \]
+    in distribution, since we know that $S_n \to \sigma$ in probability.
+\end{remark}
+
+\subsubsection{The Delta Method}
+If we are interested in the convergence of some function of a sequence of RVs, rather than the RVs themselves, then we can use the Delta Method (follows from an application of Taylor's theorem and Slutsky's theorem).
+
+\begin{theorem}[Delta Method]
+    Let $Y_n$ be a sequence of random variables that satisfies $\sqrt{n}(Y_n - \theta) \to \n(0, \sigma^2)$ in distribution. For a given function $g$ and a specific value of $\theta$, suppose that $g'(\theta)$ exists and is non-zero. Then
+    \[
+        \sqrt{n}[g(Y_n) - g(\theta)] \to \n(0, \sigma^2g'(\theta)^2)
+    \]
+    in distribution.
+\end{theorem}
+
+
+\begin{remark}
+    There exists a corresponding multivariate result.
+\end{remark}
+
+If $g'(\theta) = 0$ then we take the next term in the Taylor series.
+
+\begin{theorem}[Second Order Delta Method]
+    Let $Y_n$ be a sequence of random variables that satisfies $\sqrt{n}(Y_n - \theta) \to \n(0, \sigma^2)$ in distribution. For a given function $g$ and a specific value of $\theta$, suppose that $g'(\theta) = 0$ and $g''(\theta)$ exists and is non-zero. Then
+    \[
+        \sqrt{n}[g(Y_n) - g(\theta)] \to \n(0, \sigma^2g'(\theta)^2)
+    \]
+    in distribution.
+\end{theorem}
+
+
+\subsection{Generating A Random Sample}
+
+\begin{definition}[Direct Method]
+    A \emph{Direct Method} of generating a random sample uses the probability integral transform to map draws from a $\text{uniform}(0, 1)$ random variable to draws from the distribution of interest.\\
+    
+    The Probability Integral Transform states that if $X$ has continuous cdf $F_X(x)$ then
+    \[
+        F_X(X) \sim \text{uniform}(0, 1).
+    \]
+\end{definition}
+
+\begin{definition}[Accept-Reject Algorithm]
+    Let $Y \sim f_Y(y)$ and $V \sim f_V(v)$ where $f_Y$ and $f_V$ have common support with
+    \[
+        M = \sup_y f_Y(y) / f_V(y) < \infty.
+    \]
+    To generate a random variable $Y \sim f_Y$:
+    \begin{enumerate}[a.]
+        \item Generate $U \sim \text{uniform}(0, 1)$, $V \sim f_V$ independent.
+        \item If $U < \frac 1M f_Y(V)/f_V(V)$, return $V$ as a sample of $Y$; otherwise go back to (a.).
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    \mbox{}
+    \begin{itemize}
+        \item It is typical to call $V$ the \emph{candidate density} and $Y$ the \emph{target density}.
+        \item One would normally try to choose a candidate density with heavier tails than the target density (e.g. Cauchy and normal) to ensure that the tails of the target are well represented. If the target has heavy tails, however, it can be hard to find a candidate that results in finite $M$. In this case people turn to MCMC methods.
+        \item Note that $\P{}(\texttt{terminate}) = 1/M$. The number of trials to generate one sample of $Y$ is therefore $\text{geometric}(1/M)$, with $M$ the expected number of trials.
+        \item The intuition behind this algorithm is that if we consider placing the density of a random variable $Y$ in a box (2d for simplicity) with coordinates $(v,u)$, we express the cdf of $Y$ using $V, U \sim \text{uniform}(0, 1)$
+        \[
+            \P{}(Y \leq y) = \P{}(V \leq y \vert{} U \leq \frac1c f_Y(V))
+        \]
+        where $c = \sup_y f_Y(y)$. In the actual algorithm we take $U \sim \text{uniform}(0,1)$ and $V$ to be an RV that has common support with $Y$.
+    \end{itemize}
+\end{remark}
+
+
