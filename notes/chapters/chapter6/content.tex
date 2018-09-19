@@ -1,0 +1,221 @@
+\section{Principles of Data Reduction}
+
+In this chapter, we explore how we can use functions of a sample $\vec{X}$ to make inferences about an unknown parameter (of the distribution of the sample) $\theta$.
+
+\begin{definition}[Statistic]
+    A statistic is any function of the data.
+\end{definition}
+
+A statistic $T$ forms a partition of the sample space $\X$ according to its image, $\mathcal{T} = \{t: \exists \vec{x} \in \X{} \text{ s.t. } t = T(\vec{x})\}$. In this way a statistic provides a method of data reduction. An experimenter who observes only $T$ will treat as equal two samples $\vec{x}, \vec{y}$ for which $T(\vec{x}) = T(\vec{y})$.
+
+\subsection{The Sufficiency Principle}
+
+\begin{definition}[Sufficient Statistic]
+    A statistic $T(\vec{X})$ is a \emph{sufficient statistic} for $\theta$ if the conditional distribution of the sample $\vec{X}$ given $T(\vec{X})$ does not depend on $\theta$.
+\end{definition}
+
+\begin{remark}
+    We ignore the fact that all points have 0 probability for continuous distributions.
+\end{remark}
+
+\begin{definition}[The Sufficiency Principle]
+    If $T(\vec{X})$ is a sufficient statistic for $\theta$, then any inference about $\theta$ should depend on the sample $\vec{X}$ only through $T(\vec{X})$.
+\end{definition}
+
+\begin{theorem}
+    If $p(\vec{x}\vert{}\theta)$ is the pmf/pdf of the sample $\vec{X}$ and $q(t\vert{} \theta)$ is the pmf/pdf of $T(\vec{X})$, then $T(\vec{X})$ is a sufficient statistic for $\theta$ if $\forall \vec{x} \in \X{}$, $p(\vec{x}\vert{}\theta) / q(t\vert{}\theta)$ is constant as  a function of $\theta$.
+\end{theorem}
+
+\begin{remark}[Niceness of the exponential family]
+    It turns out that outside of the exponential family, it is rare to have a sufficient statistic that is of smaller dimension than the size of the sample.
+\end{remark}
+
+\begin{theorem}[Factorisation Theorem]
+    Let $f(\vec{x} \vert{} \theta)$ denote the pmf/pdf of a sample $\vec{X}$. A statistic $T(\vec{X})$ is a sufficient statistic for $\theta$ if and only if there exists functions $g(t \vert{} \theta)$ and $h(\vec{x})$ such that $\forall \vec{x} \in \X{}$, $\forall \theta \in \Theta$
+    \[
+        f(\vec{x} \vert{} \theta) = g(T(\vec{x}) \vert{} \theta)h(\vec{x}).
+    \]
+\end{theorem}
+
+\begin{remark}
+    This theorem shows that the identity is a sufficient statistic. It is straightforward to show from this that any bijection of a sufficient statistic is a sufficient statistic.
+\end{remark}
+
+\begin{theorem}
+    Let $X_1, \dots, X_n$ be iid observations from a pmf/pdf $f(x \vert{} \theta)$ from an exponential family 
+    \[
+        f(x|\vec{\theta}) = h(x)c(\vec{\theta})\exp\left( \sum_{i=1}^k w_i(\vec{\theta}) t_i(x) \right),
+    \]
+    where $\vec{\theta} = (\theta_1, \dots, \theta_d)$, $d \leq k$. Then $\vec{T}(\vec{X})$ defined by
+    \[
+        T_i(\vec{X}) = \sum_{j=1}^k t_i(\vec{X}_j)
+    \]
+    is a sufficient statistic for $\vec{\theta}$.
+\end{theorem}
+
+\begin{definition}[Minimal sufficient statistic]
+    A sufficient statistic $T(\vec{X})$ is called a \emph{minimal sufficient statistic} if, for any other sufficient statistic $T'(\vec{X})$, $T$ is a function of $T'$.
+\end{definition}
+
+\begin{remark}
+    By `function of' we mean that if $T'(\vec{x}) = T'(\vec{y})$ then $T(\vec{x}) = T(\vec{y})$ -- $T$ varies with respect to $X$ only insofar as it varies with $T'$. This means that each tile of the partition of the sample space according to the image of $T'$ is a subset of some tile in the partition according to $T$. This means that minimal sufficient statistics provide the coarsest possible tiling of the sample space and thus are the sufficient statistics that provide the greatest data reduction.
+\end{remark}
+
+\begin{theorem}
+    Let $f(\vec{x} \vert{} \theta)$ be the pmf/pdf of a sample $\vec{X}$. Suppose there exists a function $T(\vec{X})$ such that $\forall \vec{x}, \vec{y} \in \X{}$ the ratio $f(\vec{x}\vert{}\theta)/f(\vec{y}\vert{}\theta)$ is constant as a function of $\theta$ if an only if $T(\vec{x}) = T(\vec{y})$. Then $T(\vec{X})$ is a minimal sufficient statistic for $\theta$.
+\end{theorem}
+
+\begin{definition}[Necessary Statistic]
+    A statistic is \emph{necessary} if it can be written as a function of every sufficient statistic.
+\end{definition}
+
+\begin{theorem}
+    A statistic is minimal sufficient if and only if it is a necessary and sufficient statistic.
+\end{theorem}
+
+\begin{definition}[Ancillary Statistic]
+    A statistic $S(\vec{X})$ whose distribution does not depend on the parameter $\theta$ is called an \emph{ancillary statistic}.
+\end{definition}
+
+\begin{definition}[First Order Ancillary]
+    A statistic $V(\vec{X})$ is \emph{first order ancillary}  if $\E{}[V(\vec{X})]$ is independent of $\theta$.
+\end{definition}
+
+\begin{definition}[Complete Statistic]
+    Let $f(t \vert{} \theta)$ be a family of pdfs or pmfs for a statistic $T(\vec{X})$. The family of probability distributions is called complete if
+    \[
+        \E{}[g(T)] = 0  \,\, \forall \theta \implies \P{}(g(T) = 0) = 1 \,\, \forall \theta.
+        \]
+    Equivalently, $T(\vec{X})$ is called a $\emph{complete statistic}$.
+\end{definition}
+
+(It is left unsaid that the function $g$ must be independent of $\theta$.)
+
+\begin{theorem}[Basu's Theorem]
+    If $T(\vec{X})$ is a complete and minimal sufficient statistic, then $T(\vec{X})$ is independent of every ancillary statistic.
+\end{theorem}
+
+\begin{theorem}[Complete statistics in the exponential family]
+    Let $X_1, \dots, X_n$ be iid observations from a pmf/pdf $f(x \vert{} \theta)$ from an exponential family 
+    \[
+        f(x|\vec{\theta}) = h(x)c(\vec{\theta})\exp\left( \sum_{i=1}^k w_i(\vec{\theta}) t_i(x) \right),
+    \]
+    where $\vec{\theta} = (\theta_1, \dots, \theta_d)$, $d \leq k$. Then $\vec{T}(\vec{X})$ defined by
+    \[
+        T_i(\vec{X}) = \sum_{j=1}^k t_i(\vec{X}_j)
+    \]
+    is complete if $\{(w_1(\vec{\theta}), \dots, w_n(\vec{\theta}))\}$ contains an open set in $\R{}^k$.
+\end{theorem}
+
+\begin{remark}
+    The open set criteria excludes curved exponential families.
+\end{remark}
+
+\begin{theorem}
+    If a minimal sufficient statistic exists, then every complete statistic is minimal sufficient.
+\end{theorem}
+
+
+    
+\subsection{The Likelihood Principle}
+
+\begin{definition}[Likelihood]
+    Let $f(\vec{x}\vert{} \theta)$ denote the pmf/pdf of the sample $\vec{X}$. Then the \emph{likelihood function}, given an observation $\vec{X} = \vec{x}$, is
+    \[
+        L(\theta \vert{} \vec{x}) = f(\vec{x} \vert{} \theta)
+    \]
+    as a function of $\theta$.
+\end{definition}
+
+\begin{definition}[Likelihood Principle]
+    If $\vec{x}$ and $\vec{y}$ are two sample points such that $L(\theta \vert{} \vec{x})$ is proportional to $L(\theta \vert{} \vec{y})$, that is, there exists a constant $C(\vec{x}, \vec{y})$ such that 
+    \[
+        L(\theta \vert{} \vec{x}) = C(\vec{x}, \vec{y})L(\theta \vert{} \vec{y}) \quad \forall \theta,
+    \]
+    then the conclusions drawn from $\vec{x}$ and $\vec{y}$ should be identical.
+\end{definition}
+
+\subsection{A Slightly More Formal Construction}
+\begin{definition}[Experiment]
+    We define an \emph{experiment} $E$ to be a triple $(\vec{X}, \theta, f(\vec{x}\vert{}\theta))$, where $\vec{X}$ is a random vector with pmf/pdf $f$.\\
+    
+    Knowing what experiment $E$ was performed, an experimenter will observer $\vec{X} = \vec{x}$. The conclusions they draw about $\theta$ will be denoted $\text{Ev}(E, \vec{x})$, which stands for \emph{the evidence about $\theta$ arising from $E$ and $\vec{x}$}.
+\end{definition}
+
+\begin{definition}[Formal Sufficiency Principle]
+    Consider an experiment $E = (\vec{X}, \theta, f(\vec{x}\vert{}\theta))$ and suppose that $T(\vec{X})$ is a sufficient statistic for $\theta$. If $\vec{x}$ and $\vec{y}$ are sample points satisfying $T(\vec{x}) = T(\vec{y})$, then $\text{Ev}(E, \vec{x}) = \text{Ev}(E, \vec{y})$.
+\end{definition}
+
+\begin{definition}[Conditionality Principle]
+    Suppose that $E_1 = \{X_1, \theta, f_1(x_1\vert{} \theta)\}$ and $E_2 = \{X_2, \theta, f_2(x_2\vert{} \theta)\}$ are two experiments, where only the unknown parameter $\theta$ need be common between the two experiments. Consider the mixed experiment in which the random variable $J$ is observed, where $\P{}(J = 1) = \P{}(J = 2) = \frac12$ (independent of $\vec{X}_1, \vec{X}_2, \theta$), and then the experiment $E_J$ is performed. Formally, the experiment performed is $E^* = (\vec{X}^*, \theta, f(\vec{x}^* \vert{} \theta))$, where $\vec{X}^* = (j, \vec{X})j$ and $f^*(\vec{x}^* \vert{} \theta) = f^*((j, \vec{x}_j)\vert{} \theta) = \frac12 f_j(\vec{x}_j \vert{}\theta)$. Then
+    \[
+        \text{Ev}(E^*, (j, \vec{x}_j)) = \text{Ev}(E_j, \vec{x_j}).
+    \]
+    That is, information about $\theta$ depends only on the experiment run (not on the fact that the particular experiment was chosen).
+\end{definition}
+
+\begin{definition}{Formal Likelihood Principle}
+    Suppose that we have two experiments, $E_1 = (\vec{X}_1, \theta, f_1(\vec{x}_1 \vert{} \theta))$ and $E_2 = (\vec{X}_2, \theta, f_2(\vec{x}_2 \vert{} \theta))$ where the unknown parameter $\theta$ is the same in both experiments. Suppose that $\vec{x}_1^*$ and $\vec{x}_2^*$ are sample points from $E_1$ and $E_2$ respectively, such that 
+    \[
+        L(\theta \vert{} \vec{x}_2^*) = CL(\theta \vert{} \vec{x}_1^*)
+    \]
+    for all $\theta$ and for some constant $C(\vec{x}_1^*, \vec{x}_2^*)$ that is independent of $\theta$. Then
+    \[
+        \text{Ev}(E_1, \vec{x}_1^*) = \text{Ev}(E_2, \vec{x}_2^*).
+    \]
+\end{definition}
+
+\begin{remark}
+    Note that this is more general from the other likelihood principle since it concerns two experiments (that we can of course set to be equal).
+\end{remark}
+
+\begin{corollary}[Likelihood Principle Corollary]
+    If $E = (\vec{X}, \theta, f(\vec{x} \vert{} \theta))$ is an experiment then $\text{Ev}(E, \vec{x})$ should depend on $E$ and $\vec{x}$ only through $L(\theta \vert{} \vec{x})$.
+\end{corollary}
+
+\begin{theorem}[Birnbaum's Theorem]
+    The Formal Likelihood Principle follows from the Formal Sufficiency Principle and the Conditionality Principle. The converse is also true.
+\end{theorem}
+
+\begin{remark}
+    Many common statistical procedures violate the Formal Likelihood Principle -- the topic of the applicability of these principles is not settled. For instance, checking the residuals of a model (to grade the model) violates the Sufficiency Principle. These notions are model dependent, so may not be applicable until \emph{after} we have decided on a model.
+\end{remark}
+    
+\subsection{The Equivariance Principle}
+
+\begin{definition}[Measurement Equivariance]
+    Inferences should not depend on the measurement scale used.
+\end{definition}
+
+\begin{definition}[Formal Invariance]
+    If two inference problems have the same formal structure, in terms of the mathematical model used, then the same inference procedure should be used, regardless of the physical realisation.
+\end{definition}
+
+\begin{definition}[Equivariance Principle]
+    If $\vec{Y} = g(\vec{X})$ is a change of measurement scale such that the model $\vec{Y}$ has the same formal structure  as the model $\vec{X}$, then an inference procedure should be both measurement equivariant and formally invariant.
+\end{definition}
+
+\begin{definition}
+    Let $\mathcal{F} = \{f(\vec{x} \vert{} \theta): \theta \in \Theta\}$ be a set of pdfs or pmfs for $\vec{X}$, and let $\mathcal{G}$ be  group of transformations on the sample space $\X{}$. Then $\mathcal{F}$ is \emph{invariant under the group} $\mathcal{G}$ if for every $\theta \in \Theta$ and $g \in \mathcal{G}$ there exists a unique $\theta' \in \Theta$ such that $\vec{Y} = g(\vec{X})$ has the distribution $f(\vec{y} \vert{} \theta')$ if $\vec{X}$ has the distribution $f(\vec{x} \vert{} \theta')$.
+\end{definition}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
