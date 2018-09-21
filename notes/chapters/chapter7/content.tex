@@ -1,0 +1,210 @@
+\section{Point Estimation}
+
+\begin{definition}[Point Estimator]
+    A \emph{point estimator} is any function $W(X_1, \dots, X_n)$ of a sample; that is, any statistic is a point estimator. An \emph{estimate} is a realised value $w(x_1, \dots, x_n)$.
+\end{definition}
+
+Note that there is the implicit restriction that the estimator is not a function of the parameter you are trying to estimate.
+
+\subsection{Methods of Finding Estimators}
+
+
+\subsubsection{Method of Moments}
+The method of moments is performed using a random sample $X_1, \dots, X_n$ from a population with unknown parameters $\theta_1, \dots, \theta_k$ by computing the first $k$ empirical moments $m_k = \frac{1}{n}\sum_{i=1}^nX_i^k$ and matching them with the corresponding moments of the population $\mu_k' = \E{}[X^t]$. 
+\begin{align*}
+    m_1 &= \mu_1'(\theta_1, \dots, \theta_k)\\
+        &\vdotswithin{=} \\
+    m_k &= \mu_k' (\theta_1, \dots, \theta_k)
+\end{align*}   
+From this you get $k$ simultaneous equations that you can use to solve for the parameters of the population.
+
+
+\subsubsection{Maximum Likelihood Estimators}
+\begin{definition}[Maximum Likelihood Estimator]
+    For each sample point $\vec{x}$, let $\hat{\theta}(\vec{x})$ be a parameter value at which the likelihood $L(\theta \vert{} \vec{x})$ attains its maximum as a function of $\theta$, with $\vec{x}$ held fixed. A \emph{maximum likelihood estimator} (MLE) of the parameter $\theta$ based on a sample $\vec{X}$ is $\hat{\theta}(\vec{X})$.
+\end{definition}
+
+Suppose we want to find the MLE for some function of the parameter $\tau(\theta)$.
+
+\begin{definition}[Induced Likelihood]
+    Given some function of the parameter $\tau(\theta)$, we define the \emph{induced likelihood function} $L^*$ by
+    \[
+        L^*(\eta \vert{} \vec{x}) = \sup_{\theta : \tau(\theta) = \eta} L(\theta \vert{} \vec{x}).
+    \]
+    The value $\hat{\eta}$ that maximises $L^*(\eta \vert{} \vec{x})$ will be called the MLE of $\eta = \tau(\theta)$. It can be seen that the maxima of $L^*$ and $L$ coincide.
+\end{definition}
+
+\begin{theorem}[Invariance Property of MLEs]
+    IF $\hat{\theta}$ is the MLE of $\theta$, then for any function $\tau(\theta)$, the MLE of $\tau(\theta)$ is $\tau(\hat{\theta})$.
+\end{theorem}
+
+\begin{remark}
+    \mbox{}
+    \begin{enumerate}[1)]
+        \item The MLE can be an unstable function of the data.
+        \item When verifying maxima for multi-dimensional problems try to avoid going down the hessian route, which can be tedious.
+    \end{enumerate}
+\end{remark}
+
+\subsubsection{Bayes Estimators}
+If we denote the prior distribution by $\pi(\theta)$ and the sampling distribution by $f(\vec{x} \vert{} \theta)$, then the posterior distribution of $\theta$ given the sample $\vec{x}$ is
+    \[
+        \pi(\theta \vert{} \vec{x}) = \frac{f(\vec{x}\vert{}\theta)\pi(\theta)}{m(\vec{x})},
+    \]
+    where $m(\vec{x})$ is the marginal distribution of the sample $\vec{X}$
+    \[
+        m(\vec{x}) = \int f(\vec{x}\vert{}\theta) \pi(\theta) \d{}\theta.
+    \]
+    
+\begin{definition}[Conjugate Priors]
+    Let $\mathcal{F}$ denote the class of pdfs/pmfs $f(\vec{x} \vert{} \theta)$ (indexed by $\theta$). A class $\Pi$ of prior distribution is a \emph{conjugate family} for $\mathcal{F}$ if, $\forall f \in \mathcal{F}$, $\forall \, \text{priors} \in \mathcal{F}$ and $\forall \vec{x} \in \X{}$, the posterior distribution is in $\Pi$.
+\end{definition}
+
+Note that this relation is not said to be symmetric.
+
+\begin{remark}[Some Examples]
+    \mbox{}
+    \begin{itemize}
+        \item $\n{}$ is self-conjugate as a family.
+        \item Beta distribution is conjugate to binomial.
+    \end{itemize}
+\end{remark}
+
+
+\subsection{Methods of Evaluating Estimators}
+
+\begin{definition}[Mean Squared Error]
+    The \emph{mean squared error} (MSE) of an estimator $W$ of a parameter $\theta$ is defined by $\E{}[(W - \theta)^2]$.
+\end{definition}
+
+\begin{lemma}[Bias-Variance Decomposition]
+    \[
+        \E{}[(W - \theta)^2] = \Var{}[W] + (\E{}[W] - \theta)^2 = \Var{}[W] + \text{Bias}[W]^2
+    \]
+\end{lemma}
+
+\begin{definition}[Bias]
+    The \emph{bias} of a point estimator $W$ of a parameter $\theta$ is given by
+    \[
+        \text{Bias}[W] = \E{}[W] - \theta.
+    \]
+    An estimator whose bias is 0 is called an \emph{unbiased estimator} and has $\E{}[W] = \theta$ $\forall \theta$.
+\end{definition}
+
+\begin{remark}
+    \mbox{}
+    \begin{itemize}
+        \item Clearly, if an estimator is unbiased, then its MSE is equal to its variance.
+        \item The MSE makes sense for location parameters but not so much for scale parameters, since it is symmetric and scale parameters have a natural floor at 0.
+        \item The MSE may be a function of the thing you're trying to estimate. So which estimator you choose as being the `best' may depend on the range you expect the parameter to lie within.
+    \end{itemize}
+\end{remark}
+
+\subsubsection{Best Unbiased Estimators}
+
+\begin{definition}[Best Unbiased Estimator]
+    An estimator $W^*$ is \emph{best unbiased estimator} of of $\tau(\theta)$ if it satisfies $\E{}[W^*] = \tau(\theta) \,\, \forall \theta$, and for any other estimator with $\E{}[W] = \tau(\theta) \,\, \forall \theta$ we have $\Var{}[W*] \leq \Var{}[W] \,\, \forall \theta$. We also call $W^*$ the \emph{uniform minimum variance unbiased estimator} (UMVUE) of $\tau(\theta)$.
+\end{definition}
+
+\begin{remark}
+    Suppose that we are trying to estimate $\theta$ and consider the class of estimators
+    \[
+        \mathcal{C}_\tau = \{W: \E{}[W] = \tau(\theta)\}.
+    \]
+    All estimators in this class have the same bias, so we can compare their MSEs by comparing their variances alone. (So the best estimator in this class is just the minimum variance one.) This means that the considerations of this chapter can be applied to classes like $\mathcal{C}_\tau$, even if $\tau(\theta) \neq \theta$.
+\end{remark}
+
+The best unbiased estimator, if it exists, could be hard to find. The following lower bound at least gives a stopping criterion to our search.
+ 
+\begin{theorem}[Cram\'{e}r-Rao Inequality]
+    Let $X_1, \dots, X_n$ be a sample with pdf $f(\vec{x}\vert{}\theta)$ and let $W(\vec{X}) = W(X_1, \dots, X_n)$ be any estimator with finite variance satisfying
+    \[
+        \frac{\d{}}{\d{} \theta} \E{}[W(\vec{X})] = \int_{\X{}} \frac{\pd{}}{\pd{} \theta} \left(W(\vec{x}) f(\vec{x}\vert{}\theta) \right)\d{}\vec{x}.
+    \]
+    Then
+    \[
+        \Var{}[W(\vec{X})] \geq \frac{\left(\frac{\d{}}{\d{} \theta} \E{}[W(\vec{X})] \right)^2}{\E{}\left[ \left(\frac{\pd{}}{\pd{} \theta} \log f(\vec{X} \vert{} \theta) \right)^2 \right]}.
+    \]
+\end{theorem}
+
+The proof of this considers the correlation between the gradient of the log likelihood and the statistic. Note that the sample in the above theorem is not necessarily iid.
+
+\begin{remark}
+    This hold for discrete distributions too, replacing integrals with sums.
+\end{remark}
+
+\begin{corollary}
+    If the random sample $\X_1, \dots, X_n$ is iid then the result becomes
+    \[
+        \Var{}[W(\vec{X})] \geq \frac{\left(\frac{\d{}}{\d{} \theta} \E{}[W(\vec{X})] \right)^2}{n\E{}\left[ \left(\frac{\pd{}}{\pd{} \theta} \log f(X \vert{} \theta) \right)^2 \right]}.
+    \]
+\end{corollary}
+
+\begin{definition}[Fisher Information]
+    The quantity $\E{}\left[ \left(\frac{\pd{}}{\pd{} \theta} \log f(\vec{X} \vert{} \theta) \right)^2 \right]$ is called the \emph{Fisher Information} of the sample $\vec{X}$.
+\end{definition}
+
+\begin{lemma}
+    If $f(x \vert{} \theta)$ satisfies
+    \[
+        \frac{\d{}}{\d{} \theta} \E{}\left[ \frac{\pd}{\pd \theta} \log f(X \vert{} \theta) \right] = \int \frac{\pd}{\pd \theta} \left[ \left( \frac{\pd}{\pd \theta} \log f(x \vert{} \theta) \right) f(x \vert{} \theta) \right] \d{}x
+    \]
+    (as is true for an exponential family), then the Fisher information can be written
+    \[
+        \E{}\left[ \left(\frac{\pd{}}{\pd{} \theta} \log f(X \vert{} \theta) \right)^2 \right] = - \E{}\left[ \frac{\pd^2}{\pd \theta^2} \log f(X \vert{} \theta) \right].
+    \]
+\end{lemma}
+
+\begin{remark}
+    Even if the Cram\'{e}r-Rao bound is applicable, it may not be sharp -- there may not be an estimator that attains this bound.
+\end{remark}
+
+\begin{lemma}[Attainment]
+    Let $X_1, \dots, X_n$ be iid $X \sim f(x \vert{} \theta)$, where $f(x \vert{} \theta)$ satisfies the conditions of the Cram\'{e}r-Rao Theorem. Let $L(\theta \vert{} \vec{x}) = \prod_{i=1}^n f(x_i \vert{} \theta)$ denote the likelihood function. If $W(\vec{X})$ is any unbiased estimator of $\tau(\theta)$ then $W(\vec{X})$ attains the Cram\'{e}r-Rao lower bound if and only if $\exists a(\theta)$ such that
+    \[
+        a(\theta) [W(\vec{X}) - \tau(\theta)] = \frac{\pd}{\pd \theta} \log L(\theta \vert{} \vec{x}).
+    \]
+\end{lemma}
+
+\subsubsection{Sufficiency and Unbiasedness}
+
+\begin{theorem}[Rao-Blackwell]
+    Let $W$ be any unbiased estimator of $\tau(\theta)$ and let $T$ be a sufficient statistic for $\theta$. Define $\phi(T) = \E{}[W \vert{} T]$. Then $\E{}[\phi(T)] = \tau(\theta)$ and $\Var{}[\phi(T)] \leq \Var{}[W] \,\, \forall \theta$. That is, $\phi(T)$ is a \emph{uniformly better unbiased estimator} of $\tau(\theta)$.
+\end{theorem}
+
+\begin{remark}
+    \mbox{}
+    \begin{itemize}
+        \item Conditioning on any unbiased estimator on a sufficient statistic will result in a uniform improvement, so we need consider only functions of a sufficient statistic when looking for best unbiased estimators.
+        \item The proof doesn't require that the statistic we condition on is sufficient, but if it isn't then the resulting quantity will probably depend on the parameter we are trying to estimate.
+    \end{itemize}
+\end{remark}
+
+\begin{theorem}
+    If $W$ is a best unbiased estimator of $\tau(\theta)$ then $W$ is unique.
+\end{theorem}
+
+The following theorem is mostly useful to show that a given estimator \emph{isn't} best unbiased.
+
+\begin{theorem}
+    If $\E{}[W] = \tau(\theta)$, then $W$ is the best unbiased estimator of $\tau(\theta)$ if and only if $W$ is uncorrelated with all unbiased estimators of 0.
+\end{theorem}
+
+The idea comes from considering $\phi_a = W + aU$ where $\E{}[U] = 0$, then considering the variance.
+
+\begin{remark}[Unbiased estimator of 0]
+    Note that an unbiased estimator of 0 is simply noise (one should estimate 0 with 0). If an estimator can be improved by adding noise, then it is probably defective.
+\end{remark}
+
+We are now in a position such that, if we can characterise all of the unbiased estimators of 0 then we can check if a given estimator is best unbiased. In general this is not easy and requires conditions on the distribution. However, if a distribution is complete then it admits no unbiased estimators of 0 other than 0 itself (by definition), so we will be done.\\
+
+Note that due to the Rao-Blackwell theorem, only the distribution of the sufficient statistic needs to be complete (not the underlying population distribution).
+
+\begin{theorem}
+    Let $T$ be a complete sufficient statistic for a parameter $\theta$ and let $\phi(T)$ be any estimator based only on $T$. Then $\phi(T)$ is the unique best unbiased estimator of its expected value.
+\end{theorem}
+
+\begin{theorem}[Lehmann-Scheff\'{e}]
+    Unbiased estimators based on complete sufficient statistics are unique.
+\end{theorem}
+
