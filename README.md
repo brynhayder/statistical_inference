@@ -1,2 +1,2 @@
 # Statistical Inference, Casella & Berger
-Notes from Statistical Inference (2e) by Casella and Berger
+Notes on Statistical Inference (2e) by Casella and Berger
